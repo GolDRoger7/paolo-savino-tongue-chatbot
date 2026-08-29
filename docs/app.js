@@ -1,12 +1,10 @@
 /* ==========================================================================
  * Tongue – Frontend (Vue 3, senza build step)
  *
- * >>> UNICA COSA DA MODIFICARE DOPO IL DEPLOY DEL BACKEND <<<
- * Incolla qui sotto l'URL del tuo backend su Render (senza slash finale).
- * Esempio: "https://tongue-backend.onrender.com"
+ * BACKEND_URL = URL del tuo backend su Render (senza slash finale).
  * In locale puoi lasciare "http://localhost:3000".
  * ========================================================================== */
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "https://tongue-chatbot.onrender.com;
 
 const { createApp } = Vue;
 
