@@ -8,7 +8,7 @@
  *
  * NOTA sul piano gratuito di NewsAPI:
  *  - le richieste lato server (come questa) sono consentite;
- *  - gli articoli disponibili risalgono al massimo all'ultimo mese;
+ *  - la profondità storica degli articoli dipende dal piano attivo;
  *  - limite di ~100 richieste al giorno.
  */
 

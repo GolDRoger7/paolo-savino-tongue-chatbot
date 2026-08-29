@@ -48,8 +48,7 @@ app.post("/api/chat", async (req, res) => {
     if (articles.length === 0) {
       const reply =
         "Non ho trovato notizie per questa data e questa richiesta. " +
-        "Prova con una data più recente (il servizio copre circa l'ultimo mese) " +
-        "o con una richiesta più generica.";
+        "Prova con un'altra data o con una richiesta più generica.";
       saveMessage({ conversationId: convId, role: "user", content: message, queryDate: date });
       saveMessage({ conversationId: convId, role: "assistant", content: reply });
       return res.json({ conversationId: convId, reply, articlesCount: 0, articles: [] });
