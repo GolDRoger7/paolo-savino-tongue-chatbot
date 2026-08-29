@@ -44,6 +44,17 @@ app.post("/api/chat", async (req, res) => {
     // 1) Recupera gli articoli dalla testata giornalistica.
     const articles = await fetchArticles(message, date);
 
+    // Se non ci sono articoli, evitiamo di chiamare l'LLM (risparmio + UX chiara).
+    if (articles.length === 0) {
+      const reply =
+        "Non ho trovato notizie per questa data e questa richiesta. " +
+        "Prova con una data più recente (il servizio copre circa l'ultimo mese) " +
+        "o con una richiesta più generica.";
+      saveMessage({ conversationId: convId, role: "user", content: message, queryDate: date });
+      saveMessage({ conversationId: convId, role: "assistant", content: reply });
+      return res.json({ conversationId: convId, reply, articlesCount: 0, articles: [] });
+    }
+
     // 2) Recupera lo storico per il contesto multi-turno.
     const history = getHistory(convId);
 
