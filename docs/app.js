@@ -1,6 +1,4 @@
-// ▼▼▼ UNICA RIGA DA MODIFICARE: incolla l'URL del backend Render (senza slash finale) ▼▼▼
-const BACKEND_URL = "http://localhost:3000";
-// ▲▲▲ es. "https://tongue-backend.onrender.com" — in locale lascia localhost:3000 ▲▲▲
+const BACKEND_URL = "https://tongue-chatbot.onrender.com";
 
 // Tongue – Frontend in Vue 3 (caricato da CDN, senza build step).
 
