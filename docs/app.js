@@ -22,16 +22,9 @@ createApp({
   },
 
   computed: {
-    // Data massima selezionabile: oggi.
+    // Data massima selezionabile: oggi (non esistono notizie dal futuro).
     maxDate() {
       return new Date().toISOString().slice(0, 10);
-    },
-    // Data minima selezionabile: 28 giorni fa (limite del piano gratuito NewsAPI,
-    // che copre circa l'ultimo mese di notizie).
-    minDate() {
-      const d = new Date();
-      d.setDate(d.getDate() - 28);
-      return d.toISOString().slice(0, 10);
     },
     // Trasforma il testo di risposta in paragrafi per la resa a schermo.
     replyParagraphs() {
