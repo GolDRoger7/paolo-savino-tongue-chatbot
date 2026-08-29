@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tongue · Le notizie, in breve</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Vue 3 caricato da CDN: nessun build step necessario -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="brand">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44" role="img" aria-label="Tongue logo">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff9f1c" />
+                <stop offset="1" stop-color="#ff5a3c" />
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#g)" />
+            <path d="M18 20h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H30l-9 8v-8h-3a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4z" fill="#fff" />
+            <circle cx="27" cy="31" r="3" fill="#ff5a3c" />
+            <circle cx="37" cy="31" r="3" fill="#ff5a3c" />
+          </svg>
+          <div>
+            <h1>Tongue</h1>
+            <p class="tagline">Le notizie del giorno, spiegate in breve.</p>
+          </div>
+        </div>
+        <button class="ghost-btn" @click="nuovaChat" title="Inizia una nuova conversazione">
+          Nuova chat
+        </button>
+      </header>
+
+      <main class="container">
+        <!-- Box di input unico -->
+        <section class="input-card">
+          <div class="date-row">
+            <label for="date">Data</label>
+            <input id="date" type="date" v-model="date" />
+          </div>
+
+          <textarea
+            v-model="message"
+            class="input-box"
+            rows="4"
+            placeholder="Es. Riassumimi le notizie di politica economica di oggi…"
+            @keydown.ctrl.enter="invia"
+          ></textarea>
+
+          <div class="actions">
+            <span class="hint">Ctrl + Invio per inviare</span>
+            <button class="send-btn" @click="invia" :disabled="loading">
+              <span v-if="!loading">Chiedi a Tongue</span>
+              <span v-else>Sto leggendo le notizie…</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Messaggio di errore -->
+        <p v-if="error" class="error">{{ error }}</p>
+
+        <!-- Risultato -->
+        <section v-if="loading" class="result-card skeleton">
+          <div class="sk-line"></div>
+          <div class="sk-line"></div>
+          <div class="sk-line short"></div>
+        </section>
+
+        <section v-else-if="reply" class="result-card">
+          <h2 class="result-title">La sintesi di Tongue</h2>
+          <article class="result-body">
+            <p v-for="(p, i) in replyParagraphs" :key="i">{{ p }}</p>
+          </article>
+
+          <div v-if="articles.length" class="sources">
+            <h3>Fonti analizzate ({{ articlesCount }})</h3>
+            <ul>
+              <li v-for="(a, i) in articles" :key="i">
+                <a :href="a.url" target="_blank" rel="noopener noreferrer">
+                  {{ a.title }}
+                </a>
+                <span class="source-name">· {{ a.source }}</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section v-else class="placeholder">
+          <p>
+            Seleziona una data, scrivi cosa vuoi sapere e Tongue riassumerà per te
+            i fatti principali a partire dagli articoli di attualità.
+          </p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Tongue · Progetto dimostrativo di chatbot AI-based.</p>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
